@@ -1,0 +1,43 @@
+name: 生成云端名单库
+
+# 什么时候跑：source/ 里的名单库文件一变就跑；改脚本或改本工作流也会跑一次
+# 注意：paths 里**不包含** roster.js / version.js —— 它们由本工作流自己提交，
+#       若把它们也列进来会触发无限循环。
+on:
+  push:
+    paths:
+      - 'source/**'
+      - 'tools/build_roster.py'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+# 允许工作流把生成结果提交回仓库
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取出仓库
+        uses: actions/checkout@v4
+
+      - name: 准备 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 生成 roster.js / version.js
+        run: python tools/build_roster.py
+
+      - name: 提交生成结果（内容没变就跳过）
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add roster.js version.js
+          if git diff --cached --quiet; then
+            echo "名单库内容没有变化，跳过提交。"
+          else
+            git commit -m "自动更新云端名单库（$(date -u '+%Y-%m-%d %H:%M') UTC）"
+            git push
+          fi
