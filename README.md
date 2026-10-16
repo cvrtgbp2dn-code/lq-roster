@@ -10,6 +10,7 @@
 2. 右上角 **Add file → Upload files**，把新的名单库文件拖进去
    （**文件名保持一致**，会自动覆盖旧的那份）
 3. 拉到底点 **Commit changes**
+   上传文件直达链接：https://github.com/cvrtgbp2dn-code/lq-roster/upload/main/source
 
 完事。大约 30 秒后 GitHub 会自动转换并提交，同事下次打开工具就拿到新数据了。
 
