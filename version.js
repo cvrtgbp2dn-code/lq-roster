@@ -1,3 +1,3 @@
-window.__ROSTER_VERSION__="43af7b48ac6b";
-window.__ROSTER_COUNT__=611509;
-window.__ROSTER_BUILT__="2026-10-24 05:40 UTC";
+window.__ROSTER_VERSION__="a3cf1fd08170";
+window.__ROSTER_COUNT__=626049;
+window.__ROSTER_BUILT__="2026-10-25 09:59 UTC";
